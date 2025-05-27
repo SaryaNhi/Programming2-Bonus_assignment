@@ -18,9 +18,9 @@ public:
     void operator[] (const int& index) const;
     Vector& operator= (const Vector& vec);
     Vector& operator++ ();
-    Vector operator++ (int);  // Postfix
+    const Vector operator++ (int);  // Postfix
     Vector& operator-- ();
-    Vector operator-- (int);
+    const Vector operator-- (int);
     Vector& operator+=(const Vector& vec);
 	Vector& operator-=(const Vector& vec);
 	Vector& operator*=(const Vector& vec);

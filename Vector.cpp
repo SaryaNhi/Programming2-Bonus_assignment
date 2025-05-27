@@ -86,7 +86,7 @@ Vector& Vector::operator++ () {
     }
     return *this;
 }
-Vector Vector::operator++ (int) {  // Postfix: return copy of current this before increment
+const Vector Vector::operator++ (int) {  // Postfix: return copy of current this before increment
     Vector ans = *this;
     for(int i=1; i<=this->mSize; i++) {
         (this->mData[i])++;
@@ -100,7 +100,7 @@ Vector& Vector::operator-- () {
     }
     return *this;
 }
-Vector Vector::operator-- (int) {  // Postfix: return copy of current this before decrement
+const Vector Vector::operator-- (int) {  // Postfix: return copy of current this before decrement
     Vector ans = *this;
     for(int i=1; i<=this->mSize; i++) {
         (this->mData[i])--;

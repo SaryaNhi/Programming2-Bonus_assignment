@@ -87,10 +87,10 @@ public:
         const double& operator()(int rows, int cols) const;
 
         //Create identity matrix
-        Matrix identity(int size);
+        Matrix identity(int size) const;
 
         //Augmented matrix
-        Matrix augment(const Matrix &A, const Matrix &B);
+        Matrix augment(const Matrix &A, const Matrix &B) const;
 
         //Gaussian elimination
         Matrix gaussianElimination() const;

@@ -37,8 +37,10 @@ This project provides a C++ implementation of a `Matrix` class that supports bas
   - Matrix transposition
   - Gaussian elimination and row reduction
   - Determinant and inverse computation (for square matrices)
-  - Symmetry and invertibility checks
+  - Symmetry, full-rank and invertibility checks
   - Pseudoinverse calculation (Moore-Penrose)
+    - Pseudo inverse: (A^T x A)^(-1) x A^T
+    - Moore-Penrose: [(A^T x A) + (lambda x I)]^(-1) x A^T
 - Operator overloading:
   - `+`, `-`, `*`, `==`, `()` (one-based indexing)
 - Integration with the `Vector` class

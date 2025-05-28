@@ -316,7 +316,7 @@ Vector Matrix::operator*(const Vector& vec) {
 }
 
 //create identity matrix
-Matrix Matrix::identity(int size) {
+Matrix Matrix::identity(int size) const{
     Matrix I(size, size);
     I.zeros();
     for (int i = 1; i <= size; ++i) {
@@ -337,14 +337,14 @@ void Matrix::swapRows(int i, int j) {
 }
 
 //augment matrix
-Matrix Matrix::augment(const Matrix &A, const Matrix &B){
+Matrix Matrix::augment(const Matrix &A, const Matrix &B) const{
     assert(A.getRows() == B.getRows());
     Matrix AB(A.mNumRows_, A.mNumCols_ + B.mNumCols_); 
     AB.orig_cols_ = A.mNumCols_;
     for (int i = 1; i <= A.mNumRows_; ++i) {
-        for (int j = 1; j <= A.mNumCols_; ++j) {
+        for (int j = 1; j <= AB.mNumCols_; ++j) {
              //  A
-            if (j < A.mNumCols_) {
+            if (j <= A.mNumCols_) {
                 AB(i, j) = A(i, j);
             }
             //  B
@@ -487,6 +487,23 @@ double Matrix::determinant() const{
     return determinant;
 }
 
+Matrix Matrix::inverse() const {
+    // Augment original matrix with identity matrix of same size, reduce the left part to identity matrix
+    // Then the right part of augment matrix is the inverse matrix
+    if(!isInvertible)
+        return Moore_Penrose();     // If not invertible, return Moore-Penrose (pseudo-inverse may error if not full rank)
+    Matrix I = identity(mNumRows_);
+    Matrix Aug = augment(*this, I);
+    Matrix A = Aug.gaussianElimination();
+    Matrix B = A.rowReduceFromGaussian();
+    Matrix inverse_mx(mNumRows_, mNumCols_);
+    for(int i = 1; i <= mNumRows_; i++) {
+        for(int j = 1; j <= mNumCols_; j++) {
+            inverse_mx(i, j) = B(i, j + mNumCols_);
+        }
+    }
+    return inverse_mx;
+}
 
 Matrix Matrix::pseudoInverse() const {
     Matrix AT = transpose();
@@ -496,17 +513,7 @@ Matrix Matrix::pseudoInverse() const {
 Matrix Matrix::Moore_Penrose(double lambda = 0.01) const {
     int m = getRows();
     int n = getCols();
-    Matrix I(n, n);
-    I.identity();
+    Matrix I = identity(n);
     Matrix AT = transpose();
     return(AT * *this + I * lambda).inverse() * AT;
 }
-
-/*
-int main() {
-    Matrix A(5,5);
-    A.identity(5);
-    Matrix B = A.transpose() * A;
-    return 0;
-}
-*/

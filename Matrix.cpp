@@ -82,6 +82,26 @@ int Matrix::getCols() const {
     return mNumCols_;
 }
 
+//Calculate rank of matrix
+int Matrix::rank() const {
+    Matrix A = rowReduceFromGaussian();
+    int rank = 0;
+    bool zero_row = false;
+    for (int i=1; i <= mNumRows_; i++) {
+        for (int j=i; j <= mNumCols_; j++) {
+            if (A(i,j) != 0) {
+                rank++;
+                break;
+            }
+            if (j == mNumCols_ && A(i,j) == 0) 
+                zero_row = true;
+        }
+        if(zero_row)
+            break;
+    }
+    return rank;
+}
+
 //Set entry
 void Matrix::setEntry(int rows, int cols, const double value)  {
     assert(rows >= 1 && rows <= mNumRows_);
@@ -208,6 +228,16 @@ bool Matrix::isInvertible() const {
     //If it does have determinant
     return fabs(determinant()) > EPS;
     //Then True
+}
+
+//Is full rank?
+bool Matrix::isFullRank() const {
+    int temp = mNumCols_;
+    if (mNumRows_ < mNumCols_) 
+        temp = mNumRows_;
+    if (rank() == temp)
+        return true;
+    return false;
 }
 
 //A=B*C
@@ -385,7 +415,7 @@ Matrix Matrix::gaussianElimination() const {
     return Ab;
 }
 
-//rowReduceFromGaussian - Backward Phase
+//rowReduceFromGaussian - Backward Phase: reduced row echelon
 Matrix Matrix::rowReduceFromGaussian() const {
     Matrix R(*this);
     int rows = R.getRows();
@@ -457,3 +487,26 @@ double Matrix::determinant() const{
     return determinant;
 }
 
+
+Matrix Matrix::pseudoInverse() const {
+    Matrix AT = transpose();
+    return (AT * *this).inverse() * AT; 
+}
+
+Matrix Matrix::Moore_Penrose(double lambda = 0.01) const {
+    int m = getRows();
+    int n = getCols();
+    Matrix I(n, n);
+    I.identity();
+    Matrix AT = transpose();
+    return(AT * *this + I * lambda).inverse() * AT;
+}
+
+/*
+int main() {
+    Matrix A(5,5);
+    A.identity(5);
+    Matrix B = A.transpose() * A;
+    return 0;
+}
+*/

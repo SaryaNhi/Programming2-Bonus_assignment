@@ -45,6 +45,9 @@ public:
         int getRows() const;
         int getCols() const;
 
+        //rank of matrix
+        int rank() const;
+
         void setEntry(int rows, int cols, const double value);
         double getEntry(int rows, int cols) const;
 
@@ -104,6 +107,9 @@ public:
         // is the matrix square?
         bool isSquare() const;
 
+        //is the matrix full rank?
+        bool isFullRank() const;
+
         //swap rows
         void swapRows(int i, int j);
 
@@ -116,8 +122,11 @@ public:
         //Row echelon form
         Matrix rowReduceFromGaussian() const;
 
-        //pseudo-inverse  Moore-Penrose
+        //pseudo-inverse
         Matrix pseudoInverse() const;
+
+        // Moore-Penrose: regularlized pseudo inverse
+        Matrix Moore_Penrose(double lambda = 0.01) const;
 
 };
 

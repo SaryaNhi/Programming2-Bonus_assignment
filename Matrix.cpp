@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
-#include "Vector.h"
-#include "Matrix.h"
+#include "vector.h"
+#include "matrix.h"
 #define EPS 1e-10
 
 void Matrix::allocate() {

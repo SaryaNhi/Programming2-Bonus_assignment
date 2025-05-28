@@ -3,7 +3,7 @@
 #include <iostream>
 #include<string>
 #include <stdexcept>
-#include "Vector.h"
+#include "vector.h"
 using namespace std;
 
 class Matrix {

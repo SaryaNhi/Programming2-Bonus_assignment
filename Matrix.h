@@ -48,6 +48,7 @@ public:
         //rank of matrix
         int rank() const;
 
+        // 1-based
         void setEntry(int rows, int cols, const double value);
         double getEntry(int rows, int cols) const;
 
@@ -109,6 +110,9 @@ public:
 
         //is the matrix full rank?
         bool isFullRank() const;
+
+        //is the matrix positive definite? (Sylvester criterion)
+        bool isPositiveDefinite() const;
 
         //swap rows
         void swapRows(int i, int j);

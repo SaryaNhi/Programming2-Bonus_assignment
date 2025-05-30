@@ -37,7 +37,7 @@ This project provides a C++ implementation of a `Matrix` class that supports bas
   - Matrix transposition
   - Gaussian elimination and row reduction
   - Determinant and inverse computation (for square matrices)
-  - Symmetry, full-rank and invertibility checks
+  - Symmetry, invertibility and positive definited checks
   - Pseudoinverse calculation (Moore-Penrose)
     - Pseudo inverse: (A^T x A)^(-1) x A^T
     - Moore-Penrose: [(A^T x A) + (lambda x I)]^(-1) x A^T
@@ -50,6 +50,20 @@ This project provides a C++ implementation of a `Matrix` class that supports bas
 - Requires `Vector` class defined in `vector.h`
 - Uses standard C++ libraries: `<iostream>`, `<string>`, `<stdexcept>`
 
+# Matrix Class
+
+This project provides a C++ implementation of a `LinearSystem` class that supports solving linear system, including over-determined and under-determined linear system; and its subclass `PosSymLinSystem` to find solution of positive definite symmetric linear systems.
+
+## Features
+
+- Solve the linear system Ax = B
+- Integration with the `Vector` and `Matrix` class
+
+## Dependencies
+
+- Requires `Vector` class defined in `vector.h`, `Matrix` class defined in `Matrix.h`
+- Uses standard C++ libraries: `<iostream>`, `<string>`, `<stdexcept>`
+
 ## Usage
 
 Include both header files in your project:
@@ -57,3 +71,5 @@ Include both header files in your project:
 ```cpp
 #include "matrix.h"
 #include "vector.h"
+#include "linearsystem.h"
+```

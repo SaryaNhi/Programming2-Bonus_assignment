@@ -119,10 +119,11 @@ double Matrix::getEntry(int rows, int cols) const {
 //Print
 void Matrix::print() const {
     for (int i = 1; i <= mNumRows_; i++) {
+        std::cout << "| ";
         for (int j = 1; j <= mNumCols_; j++) { 
             std::cout <<(*this)(i,j) << " ";
         }
-        std::cout << std::endl;
+        std::cout << " |" << std::endl;
     }
     std::cout << std::endl;
 }
@@ -238,6 +239,24 @@ bool Matrix::isFullRank() const {
     if (rank() == temp)
         return true;
     return false;
+}
+
+//Is Positive Definite? (for asymmetrix linear system)
+bool Matrix::isPositiveDefinite() const {
+    if(!isSymmetric())
+        return false;
+    for(int i=1; i <= mNumRows_; i++) {
+        Matrix temp(i, i);
+        for(int j=1; j <= i; j++) {
+            for(int k=1; k <= i; k++) {
+                temp.setEntry(j, k, this->getEntry(j, k));
+            }
+        }
+        if(temp.determinant() <= 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 //A=B*C
@@ -490,7 +509,7 @@ double Matrix::determinant() const{
 Matrix Matrix::inverse() const {
     // Augment original matrix with identity matrix of same size, reduce the left part to identity matrix
     // Then the right part of augment matrix is the inverse matrix
-    if(!isInvertible)
+    if(!isInvertible())
         return Moore_Penrose();     // If not invertible, return Moore-Penrose (pseudo-inverse may error if not full rank)
     Matrix I = identity(mNumRows_);
     Matrix Aug = augment(*this, I);
@@ -510,10 +529,8 @@ Matrix Matrix::pseudoInverse() const {
     return (AT * *this).inverse() * AT; 
 }
 
-Matrix Matrix::Moore_Penrose(double lambda = 0.01) const {
-    int m = getRows();
-    int n = getCols();
-    Matrix I = identity(n);
+Matrix Matrix::Moore_Penrose(double lambda) const {
+    Matrix I = identity(getCols());
     Matrix AT = transpose();
-    return(AT * *this + I * lambda).inverse() * AT;
+    return (AT * *this + I * lambda).inverse() * AT;
 }

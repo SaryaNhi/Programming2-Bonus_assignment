@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include "matrix.h"
 using namespace std;
 
 class Vector {
@@ -37,10 +38,10 @@ public:
         //get the size
         unsigned int getSize() const;
 
-        //get the entry at index
+        //get the entry at index, 0-based
         double getEntry(const int& index) const;
 
-        //set the value at index
+        //set the value at index, 0-based
         void setEntry(const int& index, const double& value);
 
         void print(string name) const;
@@ -52,6 +53,8 @@ public:
         void random() const;
 
         double norm() const;
+
+        Matrix transpose() const;
     
     //Overloading operator
         //Operator =
@@ -63,8 +66,9 @@ public:
         //Operator -
         Vector operator-(const Vector& theOther);
 
-        //Operator * (scalar)
+        //Operator * (scalar, matrix)
         Vector operator*(const double& scalar);
+        friend Vector operator*(const double& scalar, const Vector& theOther);
 
         //Zero-based access []
         double& operator[](const int& index);
@@ -75,7 +79,7 @@ public:
         const double& operator()(const int& index)const;
 
         // Friend function for output stream
-        friend ostream& operator<<(ostream& os, const Vector& v);
+        // friend ostream& operator<<(ostream& os, const Vector& v);
 };
 //Dot product
 double dot(const Vector& a, const Vector& b);

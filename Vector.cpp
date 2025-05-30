@@ -1,4 +1,5 @@
 #include"vector.h"
+#include "matrix.h"
 #include<iostream>
 #include<string>
 #include<cassert>
@@ -98,6 +99,15 @@ double Vector::norm() const {
     return std::sqrt(sum);
 }
 
+Matrix Vector::transpose() const {
+    Matrix result(1, getSize());
+    for(int i=1; i <= getSize(); i++) {
+        result.setEntry(1, i, (*this)(i));
+    }
+    return result;
+}
+
+
 void Vector::print(string name) const {
     cout << "Vector" << name << ":" << endl << "[";
     for (int i = 0; i < mSize; i++){
@@ -137,6 +147,13 @@ Vector Vector::operator*(const double& scalar){
     Vector result(this->mSize);
     for (int i = 0; i < this->mSize; i++){
         result.mData[i] = this->mData[i] * scalar;
+    }
+    return result;
+}
+Vector operator*(const double& scalar, const Vector& theOther) {
+    Vector result(theOther.mSize);
+    for (int i = 0; i < theOther.mSize; i++){
+        result.mData[i] = theOther.mData[i] * scalar;
     }
     return result;
 }

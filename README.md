@@ -90,9 +90,7 @@ This module implements a linear regression model using the Ordinary Least Square
 - `LinearRegression.h / LinearRegression.cpp`:  
   Implementation of a linear regression model that supports:
   - Training with closed-form solution:  
-    $$
-    w = (X^T X)^{-1} X^T y
-    $$
+    `w = (Xᵀ X)⁻¹ Xᵀ y`
   - Prediction on new data
   - RMSE evaluation
 - `machine.data`: Dataset used. Only 6 input features (from columns 3 to 8) and the target PRP (column 9) are used.
@@ -107,9 +105,7 @@ This module implements a linear regression model using the Ordinary Least Square
 - Skips first 2 columns (`vendor name`, `model name`)  
 - Extracts 6 numerical features and target PRP  
 - Applies **standardization** using training set mean and standard deviation:  
-  $$
-  x' = \frac{x - \mu}{\sigma}
-  $$
+  `x' = (x - μ) / σ`
 - Adds **bias term** as the first feature (value 1)
 
 #### 2. Train-Test Split
@@ -122,21 +118,15 @@ This module implements a linear regression model using the Ordinary Least Square
 #### 3. Model Training
 
 - Uses the closed-form solution of OLS:  
-  $$
-  w = (X^T X)^{-1} X^T y
-  $$
+  `w = (Xᵀ X)⁻¹ Xᵀ y`
 - Matrix operations (`transpose`, `multiply`, `inverse`) are supported through `MatrixB.cpp`.
 
 #### 4. Prediction and Evaluation
 
 - Predicts PRP using:  
-  $$
-  \hat{y} = X_{\text{test}} \cdot w
-  $$
+  `ŷ = X_test · w`
 - Evaluates accuracy using RMSE (Root Mean Squared Error):  
-  $$
-  \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
-  $$
+  `RMSE = sqrt((1/n) * Σ (yᵢ - ŷᵢ)²)`
 
 ---
 

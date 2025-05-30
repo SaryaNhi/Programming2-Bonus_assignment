@@ -56,8 +56,16 @@ Vector PosSymLinSystem::solve() const{
     // 2. Initial residual r0 = b - Ax0 ; initial search direction p0 = r0
     Vector r = (*mpb) - (*mpA) * x;
     Vector p = r;
-    //
+    // 3. Solving loop
     while(abs(r.norm()) > EPS) {
-        
+        // The denominator is a vector size = 1
+        double alpha = dot(r, r) / (p.transpose() * (*mpA) * p).getEntry(0);
+        x = x + alpha*p;
+        Vector r_update = (*mpb) - (*mpA)*x;
+        double beta = dot(r_update, r_update) / dot(r, r);
+        // Update new direction p and r_k
+        p = r_update + beta*p;
+        r = r_update;
     }
+    return x;
 }

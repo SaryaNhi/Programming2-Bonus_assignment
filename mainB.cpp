@@ -68,7 +68,7 @@ int main() {
     // Create shuffled indices
     int indices[NUM_SAMPLES];
     for (int i = 0; i < NUM_SAMPLES; ++i) indices[i] = i;
-    srand(static_cast<unsigned int>(time(0)));
+    srand(0);
     shuffle(indices, NUM_SAMPLES);
 
 

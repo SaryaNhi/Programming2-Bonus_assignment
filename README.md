@@ -73,3 +73,75 @@ Include both header files in your project:
 #include "vector.h"
 #include "linearsystem.h"
 ```
+
+## Linear Regression Module
+
+This module implements a linear regression model using the Ordinary Least Squares (OLS) method to predict the target PRP value from 6 input features extracted from the `machine.data` dataset.
+
+### Files and Structure
+
+- `mainB.cpp`: Main program file – handles data reading, normalization, training, prediction, and evaluation.
+- `MatrixB.h / MatrixB.cpp`:  
+  Custom matrix class supporting:
+  - Matrix initialization, deep copy
+  - Transposition
+  - Matrix multiplication
+  - Matrix inversion using Gaussian elimination
+- `LinearRegression.h / LinearRegression.cpp`:  
+  Implementation of a linear regression model that supports:
+  - Training with closed-form solution:  
+    \[
+    w = (X^T X)^{-1} X^T y
+    \]
+  - Prediction on new data
+  - RMSE evaluation
+- `machine.data`: Dataset used. Only 6 input features (from columns 3 to 8) and the target PRP (column 9) are used.
+
+---
+
+### Functional Description
+
+#### 1. Data Processing
+
+- Input: `machine.data`  
+- Skips first 2 columns (`vendor name`, `model name`)  
+- Extracts 6 numerical features and target PRP  
+- Applies **standardization** using training set mean and standard deviation:
+  \[
+  x' = \frac{x - \mu}{\sigma}
+  \]
+- Adds **bias term** as the first feature (value 1)
+
+#### 2. Train-Test Split
+
+- Total: 209 samples  
+- 80% training set  
+- 20% testing set  
+- Random shuffle using Fisher-Yates algorithm
+
+#### 3. Model Training
+
+- Uses the closed-form solution of OLS:
+  \[
+  w = (X^T X)^{-1} X^T y
+  \]
+- Matrix operations (transpose, multiply, inverse) are supported through `MatrixB.cpp`
+
+#### 4. Prediction and Evaluation
+
+- Predicts PRP using:
+  \[
+  \hat{y} = X_{\text{test}} \cdot w
+  \]
+- Evaluates accuracy using RMSE (Root Mean Squared Error):
+  \[
+  \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
+  \]
+
+---
+
+### How to Compile and Run
+
+```bash
+g++ mainB.cpp MatrixB.cpp LinearRegression.cpp -o linearRegressionProgram
+./linearRegressionProgram

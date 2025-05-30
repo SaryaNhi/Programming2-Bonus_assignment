@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
-#include<string>
+#include <string>
 #include <stdexcept>
 using namespace std;
 
@@ -50,6 +50,8 @@ public:
         void zeros() const;
 
         void random() const;
+
+        double norm() const;
     
     //Overloading operator
         //Operator =

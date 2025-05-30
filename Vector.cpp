@@ -1,4 +1,4 @@
-#include"Vector.h"
+#include"vector.h"
 #include<iostream>
 #include<string>
 #include<cassert>
@@ -90,12 +90,20 @@ void Vector::random() const {
     }
 }
 
+double Vector::norm() const {
+    double sum = 0;
+    for(int i = 0; i < mSize; i++) {
+        sum += (getEntry(i) * getEntry(i));
+    }
+    return std::sqrt(sum);
+}
+
 void Vector::print(string name) const {
-    cout << "Vector" << name << ":" << endl;
+    cout << "Vector" << name << ":" << endl << "[";
     for (int i = 0; i < mSize; i++){
         cout << mData[i] << " ";
     }
-    cout << endl;
+    cout << "]" << endl;
 }
 
 //Overloading operator

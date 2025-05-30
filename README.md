@@ -23,11 +23,11 @@ This project defines a basic `Vector` class in C++ to represent and manipulate 1
 ## Usage
 This is a small part of a project along with matrix class.
 
-# Matrix Class
+## Matrix Class
 
 This project provides a C++ implementation of a `Matrix` class that supports basic and advanced matrix operations, including linear algebra functionalities like Gaussian elimination, inversion, and the Moore-Penrose pseudoinverse.
 
-## Features
+### Features
 
 - Dynamic 2D array allocation for matrix storage
 - Support for core operations:
@@ -45,26 +45,26 @@ This project provides a C++ implementation of a `Matrix` class that supports bas
   - `+`, `-`, `*`, `==`, `()` (one-based indexing)
 - Integration with the `Vector` class
 
-## Dependencies
+### Dependencies
 
 - Requires `Vector` class defined in `vector.h`
 - Uses standard C++ libraries: `<iostream>`, `<string>`, `<stdexcept>`
 
-# Matrix Class
+## Matrix Class
 
 This project provides a C++ implementation of a `LinearSystem` class that supports solving linear system, including over-determined and under-determined linear system; and its subclass `PosSymLinSystem` to find solution of positive definite symmetric linear systems.
 
-## Features
+### Features
 
 - Solve the linear system Ax = B
 - Integration with the `Vector` and `Matrix` class
 
-## Dependencies
+### Dependencies
 
 - Requires `Vector` class defined in `vector.h`, `Matrix` class defined in `Matrix.h`
 - Uses standard C++ libraries: `<iostream>`, `<string>`, `<stdexcept>`
 
-## Usage
+### Usage
 
 Include both header files in your project:
 
@@ -90,9 +90,9 @@ This module implements a linear regression model using the Ordinary Least Square
 - `LinearRegression.h / LinearRegression.cpp`:  
   Implementation of a linear regression model that supports:
   - Training with closed-form solution:  
-    \[
+    $$
     w = (X^T X)^{-1} X^T y
-    \]
+    $$
   - Prediction on new data
   - RMSE evaluation
 - `machine.data`: Dataset used. Only 6 input features (from columns 3 to 8) and the target PRP (column 9) are used.
@@ -106,10 +106,10 @@ This module implements a linear regression model using the Ordinary Least Square
 - Input: `machine.data`  
 - Skips first 2 columns (`vendor name`, `model name`)  
 - Extracts 6 numerical features and target PRP  
-- Applies **standardization** using training set mean and standard deviation:
-  \[
+- Applies **standardization** using training set mean and standard deviation:  
+  $$
   x' = \frac{x - \mu}{\sigma}
-  \]
+  $$
 - Adds **bias term** as the first feature (value 1)
 
 #### 2. Train-Test Split
@@ -121,22 +121,22 @@ This module implements a linear regression model using the Ordinary Least Square
 
 #### 3. Model Training
 
-- Uses the closed-form solution of OLS:
-  \[
+- Uses the closed-form solution of OLS:  
+  $$
   w = (X^T X)^{-1} X^T y
-  \]
-- Matrix operations (transpose, multiply, inverse) are supported through `MatrixB.cpp`
+  $$
+- Matrix operations (`transpose`, `multiply`, `inverse`) are supported through `MatrixB.cpp`.
 
 #### 4. Prediction and Evaluation
 
-- Predicts PRP using:
-  \[
+- Predicts PRP using:  
+  $$
   \hat{y} = X_{\text{test}} \cdot w
-  \]
-- Evaluates accuracy using RMSE (Root Mean Squared Error):
-  \[
+  $$
+- Evaluates accuracy using RMSE (Root Mean Squared Error):  
+  $$
   \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
-  \]
+  $$
 
 ---
 
